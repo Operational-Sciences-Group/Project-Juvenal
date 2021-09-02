@@ -8,5 +8,5 @@ Juvenal is a powershell script that enumerates powershell logging group policies
 
 To-Do:
 
-1. Make compatable with version 2.
+1. Make compatable with Powershell Version 2.
 ~~2. Add read access denied catch block.~~
