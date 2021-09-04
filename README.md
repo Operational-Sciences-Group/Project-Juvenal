@@ -1,6 +1,6 @@
 # Juvenal
 
-Powershell V 7/5
+Powershell V 7/5/2
 
 Who will watch the watchers?
 
@@ -8,6 +8,7 @@ Juvenal is a powershell script that enumerates powershell logging group policies
 
 To-Do:
 
-1. Make compatable with Powershell Version 2.
+~~1. Make compatable with Powershell Version 2.~~
 
-~~2. Add read access denied catch block.~~
+~~2. Add read access denied catch blocks.~~
+  3. Profit?
