@@ -12,4 +12,4 @@ To-Do:
 
 ~~2. Add read access denied catch blocks.~~
 
-3. Profit?
+3. Add support for HKCU
