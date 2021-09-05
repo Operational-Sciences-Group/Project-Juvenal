@@ -238,7 +238,6 @@ try {
     else {
         Write-Host "Logs may not be auto-exported" -ForegroundColor Green
     }
-    
 }
 
 catch [System.Management.Automation.PSArgumentException]{
