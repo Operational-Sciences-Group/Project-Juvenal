@@ -15,4 +15,5 @@ To-Do:
 ~~3. Add support for HKCU~~
 
 ~~4. Debug and refactor.~~
-5. Code Review (round 2)
+
+ 5. Code Review (round 2)
