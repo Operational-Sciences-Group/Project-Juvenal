@@ -14,5 +14,4 @@ To-Do:
 
 ~~3. Add support for HKCU~~
 
-
-4. Debug and refactor.
+~~4. Debug and refactor.~~
