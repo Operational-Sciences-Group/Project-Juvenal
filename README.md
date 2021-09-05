@@ -12,4 +12,5 @@ To-Do:
 
 ~~2. Add read access denied catch blocks.~~
 
-3. Add support for HKCU
+~~3. Add support for HKCU~~
+4. Debug and refactor.
