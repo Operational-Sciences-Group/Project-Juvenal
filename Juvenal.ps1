@@ -6,210 +6,139 @@
 
 $HKLM_Read=1
 $HKCU_Read=1
+$Path="HKLM"
 
-try{
-    # HKLM script block
-    if (Test-Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging){
-        # true
-        if ((Get-ItemProperty Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging -ErrorAction Stop).EnableScriptBlockLogging){
-            Write-Host "Script Block Enabled -HKLM" -ForegroundColor Red
+# script blok logging
+for ($i = 0; $i -lt 2; $i++) {
+    if($i -eq 1){
+        $Path="HKCU"
+    }
+    try {
+        if (Test-Path Registry::$Path\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging){
+            # true
+            if ((Get-ItemProperty Registry::$Path\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging -ErrorAction Stop).EnableScriptBlockLogging){
+                Write-Host "Script Block Enabled -$Path" -ForegroundColor Red
+            }
+            else{
+                Write-Host "Script Block Disabled -$Path" -ForegroundColor Green
+            }
         }
         else{
-            Write-Host "Script Block Disabled -HKLM" -ForegroundColor Green
+            Write-Host "Script Block not configured (off) -$Path" -ForegroundColor Green;
         }
     }
-    else{
-        Write-Host "Script Block not configured (off) - HKLM" -ForegroundColor Green
-    }
-}
-
-catch [System.UnauthorizedAccessException]{
-    Write-Host "HKLM Read unauthorized (Script Block)" -ForegroundColor Red
-    $HKLM_Read=0
-}
-catch [System.Security.SecurityException]{
-    Write-Host "HKLM Read unauthorized (Script Block)" -ForegroundColor Red
-    $HKLM_Read=0
-}
-catch [System.Management.Automation.PSArgumentException]{
-    Write-Host "Script Block registry pey property missing! (HKLM)" -ForegroundColor Yellow
-}
-
-try{
-    # HKCU script block
-    if (Test-Path Registry::HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging){
-        # true
-        if ((Get-ItemProperty Registry::HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging -ErrorAction Stop).EnableScriptBlockLogging){
-            Write-Host "Script Block Enabled -HKCU" -ForegroundColor Red
-        }
-        else{
-            Write-Host "Script Block Disabled -HKCU" -ForegroundColor Green
-        }
-    }
-    else{
-        Write-Host "Script Block not configured (off) - HKCU" -ForegroundColor Green
-    }
-}
-
-catch [System.UnauthorizedAccessException]{
-    Write-Host "HKCU Read unauthorized" -ForegroundColor Red
-        $HKCU_Read=0
-}
-catch [System.Security.SecurityException]{
-    Write-Host "HKCU Read unauthorized" -ForegroundColor Red
-    $HKCU_Read=0
-}
-catch [System.Management.Automation.PSArgumentException]{
-   Write-Host "Script Block registry pey property missing! (HKCU)" -ForegroundColor Yellow
-}
-
-try{
-    # HKLM module logging 
-    if (Test-Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging) {
-        #true
-        if ((Get-ItemProperty Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging -ErrorAction Stop).EnableModuleLogging){
-            Write-Host "Module Logging Enabled -HKLM" -ForegroundColor Red 
-        }
-        else{
-            Write-Host "Module Logging disabled -HKLM" -ForegroundColor Green
-        }
-    }
-    else{
-        Write-Host "Module Logging not configured (off) -HKLM" -ForegroundColor Green
-    }
-}
-
-catch [System.UnauthorizedAccessException]{
-    if ($HKLM_Read -eq 0){
-        #Do nothing
-    }
-    else{
-        Write-Host "HKLM Read unauthorized (Module Logging)" -ForegroundColor Red
+    catch [System.UnauthorizedAccessException]{
+        Write-Host "$Path Read unauthorized (Script Block)" -ForegroundColor Red
+        if($i -eq 0){
         $HKLM_Read=0
-    }
-}
-catch [System.Security.SecurityException]{
-    if ($HKLM_Read -eq 0){
-        #Do nothing
-    }
-    else{
-        Write-Host "HKLM Read unauthorized (Module Logging)" -ForegroundColor Red
-        $HKLM_Read=0
-    }
-}
-catch [System.Management.Automation.PSArgumentException]{
-    Write-Host "Module Logging registry key property missing! (HKLM)" -ForegroundColor Yellow
-}
-
-try {
-    # HKCU module logging 
-    if (Test-Path Registry::HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging) {
-        #true
-        if ((Get-ItemProperty Registry::HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging -ErrorAction Stop).EnableModuleLogging){
-            Write-Host "Module Logging Enabled -HKCU" -ForegroundColor Red
         }
         else{
-            Write-Host "Module Logging off -HKCU" -ForegroundColor Green
+            $HKCU_Read=0
         }
     }
-    else{
-        Write-Host "Module Logging not configured (off) - HKCU" -ForegroundColor Green
+    catch [System.Security.SecurityException]{
+        Write-Host "$Path Read unauthorized (Script Block)" -ForegroundColor Red
+        if($i -eq 0){
+            $HKLM_Read=0
+            }
+        else{
+            $HKCU_Read=0
+        }
     }
-}
-catch [System.UnauthorizedAccessException]{
-    if ($HKCU_Read -eq 0){
-        #Do nothing
+    catch [System.Management.Automation.PSArgumentException]{
+        Write-Host "Script Block registry key property missing! ($Path)" -ForegroundColor Yellow
     }
-    else{
-        Write-Host "HKCU Read unauthorized (Module Logging)" -ForegroundColor Red
-        $HKCU_Read=0
-    }
-}
-catch [System.Security.SecurityException]{
-    if ($HKCU_Read -eq 0){
-        #Do nothing
-    }
-    else{
-        Write-Host "HKCU Read unauthorized (Module Logging)" -ForegroundColor Red
-        $HKCU_Read=0
-    }
-}
-catch [System.Management.Automation.PSArgumentException]{
-    Write-Host "Module Logging registry key property missing! (HKCU)" -ForegroundColor Yellow
 }
 
-try{
-    # HKLM transcription
-    if(Test-Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription){
-        #true
-        if( (Get-ItemProperty Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription -ErrorAction Stop).EnableTranscripting) {
-            Write-Host "Transcription Enabled -HKLM" -ForegroundColor Red
+$Path="HKLM"
+
+# module logging 
+for ($i = 0; $i -lt 2; $i++) {
+    if($i -eq 1){
+        $Path="HKCU"
+    }
+    try{
+        if (Test-Path Registry::$Path\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging) {
+            #true
+            if ((Get-ItemProperty Registry::$Path\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging -ErrorAction Stop).EnableModuleLogging){
+                Write-Host "Module Logging Enabled -$Path" -ForegroundColor Red 
+            }
+            else{
+                Write-Host "Module Logging disabled -$Path" -ForegroundColor Green
+            }
         }
         else{
-            Write-Host "Transcription off -HLKM" -ForegroundColor Green
+            Write-Host "Module Logging not configured (off) -$Path" -ForegroundColor Green
         }
-     }
-     else{
-        Write-Host "Transcription not configured (off) - HKLM" -ForegroundColor Green
     }
-}
 
-catch [System.UnauthorizedAccessException]{
-    if ($HKLM_Read -eq 0){
-        #Do nothing
-    }
-    else{
-        Write-Host "HKLM Read unauthorized (transcription)" -ForegroundColor Red
-        $HKLM_Read=0
-    }
-}
-catch [System.Security.SecurityException]{
-    if ($HKLM_Read -eq 0){
-        #Do nothing
-    }
-    else{
-        Write-Host "HKLM Read unauthorized (transcription)" -ForegroundColor Red
-        $HKLM_Read=0
-    }
-}
-catch [System.Management.Automation.PSArgumentException]{
-    Write-Host "Transcription registry key property missing!" -ForegroundColor Yellow 
-}
-
-try{
-    # HKCU transcription
-    if(Test-Path HKCU:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription){
-        #true
-        if( (Get-ItemProperty HKCU:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription -ErrorAction Stop).EnableTranscripting) {
-            Write-Host "Transcription Enabled -HKCU" -ForegroundColor Red
+    catch [System.UnauthorizedAccessException]{
+        Write-Host "$Path Read unauthorized (Script Block)" -ForegroundColor Red
+        if($i -eq 0){
+            $HKLM_Read=0
         }
         else{
-            Write-Host "Transcription off -HKCU"
+            $HKCU_Read=0
         }
-     }
-     else{
-        Write-Host "Transcription not configured (off) - HKCU" -ForegroundColor Green
     }
+    catch [System.Security.SecurityException]{
+        Write-Host "$Path Read unauthorized (Module Logging)" -ForegroundColor Red
+        if($i -eq 0){
+            $HKLM_Read=0
+        }
+        else{
+            $HKCU_Read=0
+        }
+    }
+    catch [System.Management.Automation.PSArgumentException]{
+        Write-Host "Module Logging registry key property missing! ($Path)" -ForegroundColor Yellow
+    }
+
 }
 
-catch [System.UnauthorizedAccessException]{
-    if ($HKCU_Read -eq 0){
-        #Do nothing
+$Path = "HKLM"
+
+#  transcription
+for ($i = 0; $i -lt 2; $i++) {
+    if($i -eq 1){
+        $Path="HKCU"
     }
-    else{
-        Write-Host "HKCU Read unauthorized" -ForegroundColor Red
+    try{
+        if(Test-Path Registry::$Path\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription){
+            #true
+            if( (Get-ItemProperty Registry::$Path\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription -ErrorAction Stop).EnableTranscripting) {
+                Write-Host "Transcription Enabled -$Path" -ForegroundColor Red
+            }
+            else{
+                Write-Host "Transcription off -$Path" -ForegroundColor Green
+            }
+        }
+        else{
+            Write-Host "Transcription not configured (off) -$Path" -ForegroundColor Green
+        }
     }
-}
-catch [System.Security.SecurityException]{
-    if ($HKCU_Read -eq 0){
-        #Do nothing
+
+    catch [System.UnauthorizedAccessException]{
+        Write-Host "$Path Read unauthorized (Transcription)" -ForegroundColor Red
+        if($i -eq 0){
+            $HKLM_Read=0
+        }
+        else{
+            $HKCU_Read=0
+        }
     }
-    else{
-        Write-Host "HKCU Read unauthorized" -ForegroundColor Red
+    catch [System.Security.SecurityException]{
+        Write-Host "$Path Read unauthorized (Transcription)" -ForegroundColor Red
+        if($i -eq 0){
+            $HKLM_Read=0
+        }
+        else{
+            $HKCU_Read=0
+        }
     }
-}
-catch [System.Management.Automation.PSArgumentException]{
-    Write-Host "Transcription registry key property missing! -HKCU" -ForegroundColor Yellow 
+    catch [System.Management.Automation.PSArgumentException]{
+        Write-Host "Transcription registry key property missing! ($Path)" -ForegroundColor Yellow 
+    }
 }
 
 # If logs retained
@@ -244,7 +173,7 @@ catch [System.Management.Automation.PSArgumentException]{
     Write-Host "Log export registry key property missing" -ForegroundColor Yellow 
 }
 catch [System.UnauthorizedAccessException]{
-    Write-Host "Registry Read Unauthorized!" -ForegroundColor Red
+    Write-Host "Registry Read Unauthorized! (Log Files)" -ForegroundColor Red
 }
 
  # if powershell version 2
