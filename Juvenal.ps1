@@ -8,7 +8,7 @@ $HKLM_Read=1
 $HKCU_Read=1
 $Path="HKLM"
 
-# script blok logging
+# Test to see if script block logging is enabled:
 for ($i = 0; $i -lt 2; $i++) {
     if($i -eq 1){
         $Path="HKCU"
@@ -52,7 +52,7 @@ for ($i = 0; $i -lt 2; $i++) {
 
 $Path="HKLM"
 
-# module logging 
+# Test to see if module logging is enabled:
 for ($i = 0; $i -lt 2; $i++) {
     if($i -eq 1){
         $Path="HKCU"
@@ -98,7 +98,7 @@ for ($i = 0; $i -lt 2; $i++) {
 
 $Path = "HKLM"
 
-#  transcription
+#  Test to see if transcription is enabled:
 for ($i = 0; $i -lt 2; $i++) {
     if($i -eq 1){
         $Path="HKCU"
@@ -141,7 +141,7 @@ for ($i = 0; $i -lt 2; $i++) {
     }
 }
 
-# If logs retained
+# Test to see if logs are retained:
 try{ 
     if ( (Get-ItemProperty 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Windows Powershell' -ErrorAction Stop).Retention){
     Write-Host "Logs Retained" -ForegroundColor Red
@@ -159,7 +159,7 @@ catch [System.UnauthorizedAccessException]{
     Write-Host "Registry Read Unauthorized!" -ForegroundColor Red
 }
 
- # If log files auto-exported
+ # Test to see if log files are configured to be auto-exported:
 try {
     if( ((Get-ItemProperty 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Windows Powershell' -ErrorAction Stop).AutoBackupLogFiles) ){
         Write-Host "Logs auto-exported" -ForegroundColor Red
@@ -176,7 +176,7 @@ catch [System.UnauthorizedAccessException]{
     Write-Host "Registry Read Unauthorized! (Log Files)" -ForegroundColor Red
 }
 
- # if powershell version 2
+ # Test to see if PowerShell version 2 is installed on local host:
 try{
     if ( ((Get-ItemProperty Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine -ErrorAction Stop).PowerShellVersion ) -eq '2.0'){
         Write-Host "`nPowershell V 2 installed`n" -ForegroundColor Green
