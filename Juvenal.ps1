@@ -8,7 +8,7 @@ $HKLM_Read=1
 $HKCU_Read=1
 $Path="HKLM"
 
-# script block logging
+# Test to see if script block logging is enabled:
 for ($i = 0; $i -lt 2; $i++) {
     if($i -eq 1){
         $Path="HKCU"
@@ -52,7 +52,7 @@ for ($i = 0; $i -lt 2; $i++) {
 
 $Path="HKLM"
 
-# module logging 
+# Test to see if module logging is enabled:
 for ($i = 0; $i -lt 2; $i++) {
     if($i -eq 1){
         $Path="HKCU"
@@ -98,7 +98,7 @@ for ($i = 0; $i -lt 2; $i++) {
 
 $Path = "HKLM"
 
-#  transcription
+#  Test to see if transcription is enabled:
 for ($i = 0; $i -lt 2; $i++) {
     if($i -eq 1){
         $Path="HKCU"
@@ -141,7 +141,7 @@ for ($i = 0; $i -lt 2; $i++) {
     }
 }
 
-# If logs retained
+# Test to see if logs are retained:
 try{ 
     if ( (Get-ItemProperty 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Windows Powershell' -ErrorAction Stop).Retention){
     Write-Host "Logs Retained" -ForegroundColor Red
@@ -159,7 +159,7 @@ catch [System.UnauthorizedAccessException]{
     Write-Host "Registry Read Unauthorized!" -ForegroundColor Red
 }
 
- # If log files auto-exported
+# Test to see if log files are configured to be auto-exported:
 try {
     if( ((Get-ItemProperty 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Windows Powershell' -ErrorAction Stop).AutoBackupLogFiles) ){
         Write-Host "Logs auto-exported" -ForegroundColor Red
