@@ -8,7 +8,7 @@ $HKLM_Read=1
 $HKCU_Read=1
 $Path="HKLM"
 
-# script blok logging
+# script block logging
 for ($i = 0; $i -lt 2; $i++) {
     if($i -eq 1){
         $Path="HKCU"
