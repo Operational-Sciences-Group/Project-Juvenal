@@ -53,4 +53,4 @@ All the contents of this repository should be used for authorized and/or educati
 
 ## License
 
-GPL3.0
+[GPL 3.0](https://github.com/Operational-Sciences-Group/Project-Juvenal/blob/main/LICENSE)
