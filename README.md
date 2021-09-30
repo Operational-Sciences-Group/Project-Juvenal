@@ -12,23 +12,31 @@ Juvenal is a PowerShell (Version 7/5/2) script that enumerates Windows [PowerShe
 
 ## Table of contents
 
-1. About
-2. Installation /usage
-3. Credits
-4. Disclaimer / Warning
-5. Credits
-6. License
+1. [About](https://github.com/Operational-Sciences-Group/Project-Juvenal/blob/main/README.md#about)
+2. [Installation /usage](https://github.com/Operational-Sciences-Group/Project-Juvenal/blob/main/README.md#installation--usage)
+3. [Disclaimer / Warning](https://github.com/Operational-Sciences-Group/Project-Juvenal/blob/main/README.md#disclaimer--warning)
+4. [License](https://github.com/Operational-Sciences-Group/Project-Juvenal/blob/main/README.md#license)
 
 ## About
 
 Have you ever felt like you are being watched?
 
-If so, Project-Juvenal is for you.
+If so, Juvenal is for you.
 
-Why does this project exist?
-Juvenal makes it easy for blue (and red) teams to identify Windows PowerShell group-policy mis-configurations
-What problem does it solve?
-What "features" does it have?
+
+Juvenal makes it easy for blue (and red) teams to identify Windows PowerShell group-policy mis-configurations.
+The script looks at HKEY_LOCAL_MACHINE and HKEY_CURRENT_USER keys to determine if PowerShell is being [logged](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging_windows?view=powershell-7.1&viewFallbackFrom=powershell-5.1).
+
+PowerShell logging is seperated into three "main" types:
+
+* Script Block Logging
+  - Logs the raw script supplied through the command line, a function, script, workflow, etc.
+* Module Logging
+  - Allows auditing of specific PowerShell modules when used.
+* Transcription
+  - Logs commands run (and their output)
+
+Juvenal checks for all of these in HKLM and HKCU and provides a color coded output (Red for danger). Then it displays the execution policy and current user priviliges. 
 
 #### Screenshot
 <a href="https://ibb.co/VB8TCGT"><img src="https://i.ibb.co/ryJHphH/Juvenal.png" alt="Juvenal" border="0"></a>
