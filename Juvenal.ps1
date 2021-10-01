@@ -4,6 +4,19 @@
 # Powershell V 7/5/2
 # This script tests for Powershell execution policy, transcription, scriptblock and module logging, and version 2.
 
+#                One man
+#              gets a cross
+#              for his crime
+#             /    , the other
+#             ) (>  a  Crown.
+#            /        ,    /
+#            L,           /
+#             (__        | 
+#             (          |
+#              ---\      |
+#                  |     |                
+
+
 $HKLM_Read=1
 $HKCU_Read=1
 $Path="HKLM"
