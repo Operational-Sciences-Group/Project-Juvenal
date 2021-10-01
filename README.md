@@ -43,9 +43,24 @@ Juvenal checks for all of these in HKLM and HKCU and provides a color coded outp
 
 ## Installation / Usage
 
-**Powershell V3.0+ One-liner:**
+**PowerShell V3.0+ One-liner:**
 
 ```Invoke-Expression (Invoke-WebRequest 'https://tinyurl.com/Juv3nal')```
+
+**To install and use locally using PowerShell V3.0+:**
+
+1. Navigate to the desired install path:
+
+&emsp;```Set-Location <install\path>```
+
+2. Place Juvenal.ps1 into path:
+
+        (Invoke-WebRequest -URI "https://raw.githubusercontent.com/Operational-Sciences-Group/Project-Juvenal/main/Juvenal.ps1").Content > Juvenal.ps1
+        
+3. Run Juvenal.ps1:
+
+&emsp;```.\Juvenal.ps1```
+
 
 ## Disclaimer / Warning
 All the contents of this repository should be used for authorized and/or educational purposes only. Any misuse of this repository will not be the responsibility of the author or of any other collaborator.
