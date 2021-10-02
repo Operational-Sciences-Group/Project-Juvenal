@@ -2,7 +2,7 @@
 # ⌨ >= ⚔
 # Juvenal.ps1
 # Powershell V 7/5/2
-# This script tests for Powershell execution policy, transcription, scriptblock and module logging, and version 2.
+# This script tests for Powershell execution policy, language mode, transcription, scriptblock/module logging, and version 2.
 
 #                One man
 #              gets a cross
