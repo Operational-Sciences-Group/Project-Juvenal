@@ -36,10 +36,10 @@ PowerShell logging is seperated into three "main" types:
 * Transcription
   - Logs commands run (and their output)
 
-Juvenal checks for all of these in HKLM and HKCU and provides a color coded output (Red for danger). Then it displays the execution policy and current user priviliges. 
+Juvenal checks for all of these in HKLM and HKCU and provides a color coded output (Red for danger). Then it displays the execution policy, [language mode](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_language_modes?view=powershell-7.1), and current user priviliges. 
 
 #### Screenshot
-<a href="https://ibb.co/VB8TCGT"><img src="https://i.ibb.co/ryJHphH/Juvenal.png" alt="Juvenal" border="0"></a>
+<a href="https://ibb.co/cyjrZqz"><img src="https://i.ibb.co/0nxG65P/Juvenal.png" alt="Juvenal" border="0"></a>
 
 ## Installation / Usage
 
