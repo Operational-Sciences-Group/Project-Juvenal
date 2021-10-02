@@ -203,6 +203,8 @@ catch{
 finally{
 Write-Host "Execution Policy: " -NoNewline
 Get-executionPolicy
+Write-Host "Language Mode: " -NoNewline
+$ExecutionContext.SessionState.LanguageMode
 Write-Host "Whoami: " -NoNewline
 whoami
 whoami /priv
