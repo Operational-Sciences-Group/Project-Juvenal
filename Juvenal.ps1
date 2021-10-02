@@ -8,7 +8,7 @@
 #              gets a cross
 #              for his crime
 #             /    , the other
-#             ) (>  a  Crown.
+#             ) (>  a  crown.
 #            /        ,    /
 #            L,           /
 #             (__        | 
