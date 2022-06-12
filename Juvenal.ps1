@@ -2,13 +2,13 @@
 # ⌨ >= ⚔
 # Juvenal.ps1
 # Powershell V 7/5/2
-# This script tests for Powershell execution policy, language mode, transcription, scriptblock/module logging, and version 2.
+# This script tests for Powershell execution policy, transcription, scriptblock and module logging, and version 2.
 
 #                One man
 #              gets a cross
 #              for his crime
 #             /    , the other
-#             ) (>  a  crown.
+#             ) (>  a  Crown.
 #            /        ,    /
 #            L,           /
 #             (__        | 
@@ -17,9 +17,11 @@
 #                  |     |                
 
 
-$HKLM_Read=1
-$HKCU_Read=1
-$Path="HKLM"
+$HKLM_Read = 1
+$HKCU_Read = 1
+$Path = "HKLM"
+$HistoryPath = (Get-PSReadLineOption).HistorySavePath
+$whoami = whoami 
 
 # Test to see if script block logging is enabled:
 for ($i = 0; $i -lt 2; $i++) {
@@ -201,12 +203,16 @@ catch{
 }
 
 finally{
+
+Write-Host " ##### History permissions #####" -NoNewline
+(Get-Acl -Path "$HistoryPath").Access | Where-Object {$_.IdentityReference -like $whoami} | Format-Table -AutoSize FileSystemRights,AccessControlType
+Write-Host "`n"
 Write-Host "Execution Policy: " -NoNewline
 Get-executionPolicy
 Write-Host "Language Mode: " -NoNewline
 $ExecutionContext.SessionState.LanguageMode
-Write-Host "Whoami: " -NoNewline
-whoami
+Write-Host "Whoami: $whoami"
+
 whoami /priv
 }
 # All wish to possess knowledge, but few, comparatively speaking, are willing to pay the price.
